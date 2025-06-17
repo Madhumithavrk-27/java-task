@@ -1,0 +1,35 @@
+mysql> use ttask
+Database changed
+mysql> select * from course;
++--------+----------+---------+
+| rollno | studname | cname   |
++--------+----------+---------+
+|      1 | shanju   | java    |
+|      2 | kalai    | java    |
+|      3 | sudee    | C++     |
+|      4 | madhu    | phython |
+|      5 | surya    | java    |
++--------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select count(studname) from course where cname ='java';
++-----------------+
+| count(studname) |
++-----------------+
+|               3 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(studname) from course where cname ='phython';
++-----------------+
+| count(studname) |
++-----------------+
+|               1 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(studname) from course where cname ='c++';
++-----------------+
+| count(studname) |
++-----------------+
+|               1 |
