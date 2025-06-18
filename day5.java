@@ -1,68 +1,70 @@
-TASK 1
-try {
-    int a = 10;
-    int b = 0;
-    int result = a / b;
-    System.out.println("Result: " + result);
-} catch (ArithmeticException e) {
-    System.out.println("Error: Cannot divide by zero.");
-}
+TASK 1:
 
+import java.util.ArrayList;
+import java.util.Iterator;
 
-TASK 2
-import java.io.*;
+public class SimpleStudentList {
+    public static void main(String[] args) {
+        ArrayList<String> students = new ArrayList<>();
 
-public class ReadFile {
-    public static void main(String[] args) throws IOException //not Handel inside the method {
-        BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+        students.add("Alice");
+        students.add("Bob");
+        students.add("Charlie");
+
+         Iterator<String>  terator = students.iterator();
+        System.out.println("Student Names:");
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
         }
-        reader.close();
     }
 }
 
-TASK 3
-import java.io.*;
 
-public class WriteFile {
-    public static void main(String[] args) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
-        String[] lines = {"Hello", "World", "Java File IO"};
-        for (String line : lines) {
-            writer.write(line);// writes the current line of the text
-            writer.newLine();
+TASK 2:
+
+import java.util.HashSet;
+
+public class UniqueEmail {
+    public static void main(String[] args) {
+                HashSet<String> emailSet = new HashSet<>();
+
+                emailSet.add("shanju@gmail.com");
+        emailSet.add("nagaraj@gmail.com");
+        emailSet.add("menaka@gmail.com");
+        emailSet.add("harshit@gmail.com"); 
+               System.out.println("Unique Email Addresses:");
+        for (String email : emailSet) {
+            System.out.println(email);
         }
-        writer.close();
     }
 }
 
-MAIN PROGRAM
+TASK 3:
 
-import java.io.*;
+import java.util.HashMap;
 
-public class ResultProcessor {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("marks.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("results.txt"));
-        String line;
+public class SimpleAverage {
+    public static void main(String[] args) {
+        HashMap<String, Integer> marks = new HashMap<>();
 
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            String name = parts[0];
-            int total = 0;//stores the total mark of students
+        marks.put("John", 80);
+        marks.put("Emma", 90);
+        marks.put("Alex", 70);
 
-            for (int i = 1; i < parts.length; i++) {
-                total += Integer.parseInt(parts[i]);
-            }
-
-            double avg = total / (parts.length - 1.0);
-            writer.write(name + " - Total: " + total + ", Average: " + avg);
-            writer.newLine();
+        int total = 0;
+        for (int m : marks.values()) {
+            total += m;
         }
 
-        reader.close();
-        writer.close();
+        double average = total / (double) marks.size();
+
+    for (String name : marks.keySet()) {
+            System.out.println(name + ": " + marks.get(name));
+        }
+    
+    
+ System.out.println("Average Marks: " + average);
     }
 }
+
+       
