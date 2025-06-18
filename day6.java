@@ -1,39 +1,93 @@
-TASK 1
-try {
-    int a = 10;
-    int b = 0;
-    int result = a / b;
-    System.out.println("Result: " + result);
-} catch (ArithmeticException e) {
-    System.out.println("Error: Cannot divide by zero.");
-} 
+TASK 1:
 
-
-TASK 2 
-import java.io.*;
-
-public class ReadFile {
-    public static void main(String[] args) throws IOException //not Handel inside the method {
-        BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i);
         }
-        reader.close();
+        
+        try {
+                Thread.sleep(500);             } catch (InterruptedException e) {
+                System.out.println("Thread interrupted");
+            }
+
+        
+        
     }
 }
 
-TASK 3 
-import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        MyThread th = new MyThread();
+        th.start();     }
+}
 
-public class WriteFile {
-    public static void main(String[] args) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
-        String[] lines = {"Hello", "World", "Java File IO"};
-        for (String line : lines) {
-            writer.write(line);// writes the current line of the text 
-            writer.newLine();
-        }
-        writer.close();
+
+TASK 2:
+
+class MessagePrinter implements Runnable {
+    public void run() {
+        System.out.println("Hello from " + Thread.currentThread().getName());
     }
 }
+
+public class MultiThreadExample {
+    public static void main(String[] args) {
+        MessagePrinter task = new MessagePrinter();
+
+        Thread t1 = new Thread(task, "Thread-1");
+        Thread t2 = new Thread(task, "Thread-2");
+        Thread t3 = new Thread(task, "Thread-3");
+
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+TASK 3:
+
+
+class ThreadA extends Thread {
+    public void run() {
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread A: " + i);
+                Thread.sleep(500);  // Sleep for 500 milliseconds
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread A interrupted");
+        }
+    }
+}
+
+class ThreadB extends Thread {
+    ThreadA threadA;
+
+    ThreadB(ThreadA t) {
+        this.threadA = t;
+    }
+
+    public void run() {
+        try {
+            threadA.join();  // Wait for ThreadA to finish
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread B: " + i);
+                Thread.sleep(500);  // Sleep for 500 milliseconds
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread B interrupted");
+        }
+    }
+}
+
+public class SleepJoinDemo {
+    public static void main(String[] args) {
+        ThreadA tA = new ThreadA();
+        ThreadB tB = new ThreadB(tA);
+
+        tA.start();
+        tB.start();
+    }
+}
+
