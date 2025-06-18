@@ -1,114 +1,76 @@
-Task1
-class BankAccount {
-    private double balance;
+import java.io.*;
 
-    
-    public BankAccount(double balance) {
-        this.balance = balance;
-    }
+public class SimpleBufferedReader {
+    public static void main(String[] args) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+            String line;
 
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
 
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.println("Deposited: " + amount);
-        } else {
-            System.out.println("Deposit amount must be positive.");
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error reading the file.");
         }
     }
+}
 
-    
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            System.out.println("Withdrew: " + amount);
-        } else {
-            System.out.println("Insufficient balance or invalid amount.");
+TASK3:
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class SimpleFileWrite {
+    public static void main(String[] args) {
+        try {
+            FileWriter writer = new FileWriter("output.txt");
+
+            writer.write("First line\n");
+            writer.write("Second line\n");
+            writer.write("Third line\n");
+
+            writer.close();
+            System.out.println("Successfully wrote to the file.");
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
-
-    // Get balance method
-    public double getBalance() {
-        return balance;
-    }
 }
 
-public class Main {
+MAIN PROGRAM:
+
+import java.io.*;
+
+public class SimpleResultProcessing {
     public static void main(String[] args) {
-        BankAccount account = new BankAccount(1000);
-        account.deposit(500);
-        account.withdraw(200);
-        System.out.println("Current Balance: " + account.getBalance());
-    }
-}
+        try (BufferedReader reader = new BufferedReader(new FileReader("marks.txt"));
+             BufferedWriter writer = new BufferedWriter(new FileWriter("result.txt"))) {
 
+            writer.write("Name Total");
+            writer.newLine();
 
-TASK 2
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                String name = parts[0];
+                int total = 0;
 
+                for (int i = 1; i < parts.length; i++) {
+                    total += Integer.parseInt(parts[i]);
+                }
 
-class Person {
-    private String name;
-    private int age;
+                writer.write(name + " " + total);
+                writer.newLine();
+            }
 
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+            System.out.println("Result written successfully.");
 
-    public void displayInfo() {
-        System.out.println("Name: " + name + ", Age: " + age);
-    }
-}
-
-class Employee extends Person {
-    private double salary;
-
-    public Employee(String name, int age, double salary) {
-        super(name, age);
-        this.salary = salary;
-    }
-
-    public void calculateSalary() {
-        System.out.println("Salary: " + salary);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Employee emp = new Employee("Vikram", 27, 50000);
-        emp.displayInfo();
-        emp.calculateSalary();
-    }
-}
-
-
-MAIN PROGRAM
-
-class Student {
-    private String name;
-    private int marks;
-
-    public Student(String name) {
-        this.name = name;
-    }
-
-    public void assignMarks(int marks) {
-        this.marks = marks;
-    }
-
-    public void displayResults() {
-        System.out.println("Student: " + name + ", Marks: " + marks);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Student student1 = new Student("Arjun");
-        student1.assignMarks(85);
-        student1.displayResults();
-
-        Student student2 = new Student("Akshaya");
-        student2.assignMarks(92);
-        student2.displayResults();
+        } catch (IOException e) {
+            System.out.println("Error occurred.");
+        }
     }
 }
